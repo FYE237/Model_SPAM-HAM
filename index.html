@@ -1,0 +1,54 @@
+<html>
+	<head>
+	<meta charsetaz="utf-8">
+	<Link rel="stylesheet" href="style1.css" />
+	<title> TP_IA</title>
+	</head>  
+	
+	<body>
+		<div id="conteneur">
+				</br>
+                    <label >	TP FEZEU YOUMBI Emmanuel 4GI_SPAM/HAM   </label> 
+				</br>	
+                    <label for="mail">	Texte à analyser   </label> 
+				</br>	
+                </br>
+                    <textarea  id="mail" rows='8' cols='80'/></textarea>	
+				</br>
+				</br>	
+					<button type="submit"  id="buttonSubmit">Analyse</button>
+				<br/>
+                </br>
+		</div>
+					</br><div id="h4"></div>
+         <script type="text/javascript">
+                (function() {
+                    var httpRequest=document.getElementById("buttonSubmit").addEventListener('click',makeRequest);
+                
+                    function makeRequest(){
+                        var mail=document.getElementById('mail').value;
+                        httpRequest=new XMLHttpRequest();
+                        if(!httpRequest){
+                             return false;
+                        }
+                        httpRequest.onreadystatechange=alertContents;
+                        httpRequest.open('GET',"http://localhost:8001/api/spamdetector?mail="+mail+"");
+                        httpRequest.send();
+                    }
+    
+                    function alertContents(){
+                        if(httpRequest.readyState==XMLHttpRequest.DONE){
+                            if(httpRequest.status==200){
+                                var response=httpRequest.responseText;
+                                document.getElementById('h4').textContent="reponse :  "+response
+                            }
+                            if(httpRequest.status==404){
+                                console.log("page not found")
+                            }
+                        }
+                        console.log(response)
+                     }
+                })();
+            </script>
+	</body>
+</html>
